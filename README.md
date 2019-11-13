@@ -4,7 +4,10 @@ Control relay module by mobile application & web server
 
 Upload code for ESP 8266 MCU
 
-Using Android App: https://play.google.com/store/apps/details?id=com.i.myhome_socketio&hl=vi to Control device to ESP8266
+Using Android App: https://play.google.com/store/apps/details?id=com.i.myhome_socketio&hl=vi 
+to Control device to ESP8266.
+
+git clone https://github.com/ngnxuanhoa/iQQSmartHome --> Web server --> Upto your hosting (test in heroku - free)
 
 V2:
 
