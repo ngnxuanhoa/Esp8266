@@ -23,8 +23,13 @@ THIETBI3 --> Control output4
 
 ....
 
-V4:
+V5:
 
 THIETBI --> get all devices status
 
 set Output here --> byte output[] = {14, 12, 13, 15, 2};
+
+ESP Library:
+https://github.com/ngohuynhngockhanh/Socket.io-v1.x-Library
+https://github.com/bblanchon/ArduinoJson
+https://github.com/tzapu/WiFiManager
