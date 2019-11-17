@@ -2,9 +2,9 @@
 //#include <SoftwareSerial.h>
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
-#include <WiFiManager.h>        
-#include <SocketIOClient.h>  
-#include <ArduinoJson.h>  
+#include <WiFiManager.h>         // https://github.com/tzapu/WiFiManager
+#include <SocketIOClient.h>  //https://github.com/ngohuynhngockhanh/Socket.io-v1.x-Library
+#include <ArduinoJson.h>  //https://github.com/bblanchon/ArduinoJson
 #include <WiFiClient.h>
 
 WiFiManager wifiManager;
