@@ -1,10 +1,10 @@
-// ESP8266 WIFI Manager iQQ-V4
+// ESP8266 WIFI Manager iQQ-V5
 //#include <SoftwareSerial.h>
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
-#include <WiFiManager.h>         // https://github.com/tzapu/WiFiManager
-#include <SocketIOClient.h>  //https://github.com/ngohuynhngockhanh/Socket.io-v1.x-Library
-#include <ArduinoJson.h>  //https://github.com/bblanchon/ArduinoJson
+#include <WiFiManager.h>        
+#include <SocketIOClient.h>  
+#include <ArduinoJson.h>  
 #include <WiFiClient.h>
 
 WiFiManager wifiManager;
@@ -33,7 +33,6 @@ void setup() {
   for (int i = 0; i < sizeof(output); i++) {
     pinMode(output[i], OUTPUT);
   }
-
   // fetches ssid and pass from eeprom and tries to connect
   // if it does not connect it starts an access point with the specified name
   // here  "iQQSmartHome"
@@ -49,6 +48,8 @@ void setup() {
 
 void loop() {
   if (client.monitor()) {
+    Serial.print(RID);
+    Serial.println(Rfull);
     setDevice();
   }
 
@@ -58,16 +59,14 @@ void loop() {
 
   if (WiFi.status() == WL_CONNECTED) {
     if (millis() - previousMillis > interval) {
-      //lệnh:
       previousMillis = millis();
-      //Serial.println("Ket noi lai server");
       client.reconnect(host, port, nsp_esp8266);
-      //Serial.println("Da san sang nhan lenh 2");
+      //Serial.println("Reconnect server");
     }
     //Kết nối lại!
     if (!client.connected()) {
       client.reconnect(host, port, nsp_esp8266);
-      //Serial.println("Da san sang nhan lenh 3");
+      //Serial.println("Disconnect server");
     }
   }
   else {
@@ -77,12 +76,11 @@ void loop() {
 }
 void setDevice() {
   
-  Serial.println(RID);
-  Serial.println(Rfull);
+
   if (RID == "THIETBI") {
     getDeviceStatus();
   }
-  else{
+  else if (RID.length() > 6){
       RID.remove(0,7); // Cắt chuỗi RID nhận được để lấy số thứ tự thiết bị
       digitalWrite(output[RID.toInt()], Rfull.toInt());
       getDeviceStatus();
