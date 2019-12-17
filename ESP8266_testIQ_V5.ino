@@ -1,11 +1,9 @@
 // ESP8266 WIFI Manager iQQ-V5
 //#include <SoftwareSerial.h>
-#include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
 #include <WiFiManager.h>         // https://github.com/tzapu/WiFiManager
 #include <SocketIOClient.h>  //https://github.com/ngohuynhngockhanh/Socket.io-v1.x-Library
 #include <ArduinoJson.h>  //https://github.com/bblanchon/ArduinoJson
-#include <WiFiClient.h>
 
 WiFiManager wifiManager;
 SocketIOClient client;
@@ -57,36 +55,29 @@ void loop() {
   //Serial.println(mySerial.read());
   //}
 
-  if (WiFi.status() == WL_CONNECTED) {
-    if (millis() - previousMillis > interval) {
-      previousMillis = millis();
-      client.reconnect(host, port, nsp_esp8266);
-      //Serial.println("Reconnect server");
-    }
-    //Kết nối lại!
-    if (!client.connected()) {
-      client.reconnect(host, port, nsp_esp8266);
-      //Serial.println("Disconnect server");
-    }
+  if (millis() - previousMillis > interval) {
+     previousMillis = millis();
+     client.reconnect(host, port, nsp_esp8266);
+     //Serial.println("Reconnect server");
   }
-  else {
-    WiFiManager wifiManager;
-    wifiManager.autoConnect("iQQSmartHome");
+    //Kết nối lại!
+  if (!client.connected()) {
+     client.reconnect(host, port, nsp_esp8266);
+     //Serial.println("Disconnect server");
   }
 }
-void setDevice() {
-  
-
+void setDevice() {  
   if (RID == "THIETBI") {
     getDeviceStatus();
   }
-  else if (RID.length() > 6){
+  else if (RID.length() > 8){
       RID.remove(0,7); // Cắt chuỗi RID nhận được để lấy số thứ tự thiết bị
       digitalWrite(output[RID.toInt()], Rfull.toInt());
       getDeviceStatus();
   }
- }
-  void getDeviceStatus() {
+}
+
+void getDeviceStatus() {
     StaticJsonDocument<256> jsonBuffer;
     JsonObject root = jsonBuffer.to<JsonObject>();
     //đọc giá trị cảm biến rồi in ra root
@@ -100,4 +91,4 @@ void setDevice() {
     client.send("THIETBI", jsonStr);
     RID = "";
     Serial.println(jsonStr);
-  }
+}
