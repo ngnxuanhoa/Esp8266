@@ -1,11 +1,9 @@
 // ESP8266 WIFI Manager iQQ-V2
 //#include <SoftwareSerial.h>
-#include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
 #include <WiFiManager.h>         // https://github.com/tzapu/WiFiManager
 #include <SocketIOClient.h>  //https://github.com/ngohuynhngockhanh/Socket.io-v1.x-Library
 #include <ArduinoJson.h>  //https://github.com/bblanchon/ArduinoJson
-#include <WiFiClient.h>  
 
 WiFiManager wifiManager;
 SocketIOClient client;
@@ -62,24 +60,18 @@ void loop(){
    //Serial.println(mySerial.read());
 //}
   
-if (WiFi.status() == WL_CONNECTED) {
  if (millis() - previousMillis > interval) {
-        //lệnh:
-        previousMillis = millis();
+    previousMillis = millis();
         //Serial.println("Ket noi lai server");
-        client.reconnect(host, port, nsp_esp8266);
+    client.reconnect(host, port, nsp_esp8266);
         //Serial.println("Da san sang nhan lenh 2");
  }
     //Kết nối lại!
  if (!client.connected()) {
-      client.reconnect(host, port, nsp_esp8266);
+    client.reconnect(host, port, nsp_esp8266);
       //Serial.println("Da san sang nhan lenh 3");
  }
-}
-else{
-  WiFiManager wifiManager;
-  wifiManager.autoConnect("iQQSmartHome");
-}
+
 }
 void setDevice(){
    Serial.println(RID);
