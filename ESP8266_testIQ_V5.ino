@@ -70,7 +70,7 @@ void setDevice() {
   if (RID == "THIETBI") {
     getDeviceStatus();
   }
-  else if (RID.length() > 8){
+  else if (RID.length() > 7){
       RID.remove(0,7); // Cắt chuỗi RID nhận được để lấy số thứ tự thiết bị
       digitalWrite(output[RID.toInt()], Rfull.toInt());
       getDeviceStatus();
