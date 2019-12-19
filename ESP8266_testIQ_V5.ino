@@ -32,7 +32,7 @@ char nsp_esp8266[] = "esp8266";   //ESP namespace as same as Web js!
 
 // RID: Event
 extern String RID;
-// Rfull: JSON string - msg load
+// Rfull: JSON string - msg payload
 extern String Rfull;
 
 byte output[] = {14, 12, 13, 15, 2};
